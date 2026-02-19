@@ -87,7 +87,7 @@ type ProcessStep = {
 };
 
 export default function ProcessPage() {
-  const processSteps = [
+  const processSteps: ProcessStep[] = [
     {
       number: "01",
       title: "Discussion & Problem Understanding",
@@ -186,7 +186,7 @@ export default function ProcessPage() {
       color: "cyan",
       optional: true,
     },
-  ] satisfies readonly ProcessStep[];
+  ];
 
   const whyItWorks = [
     "Clear communication at every stage",
@@ -287,12 +287,14 @@ export default function ProcessPage() {
             <div className="pointer-events-none absolute left-[39px] top-8 bottom-8 w-px hidden sm:block"
               style={{ background: "linear-gradient(to bottom, rgba(52,211,153,0.5), rgba(6,182,212,0.2), transparent)" }} />
 
-            {processSteps.map((step, idx) => (
-              <Reveal key={step.number} delay={idx * 60}>
+            {processSteps.map((step, idx) => {
+              const s = step as ProcessStep;
+              return (
+              <Reveal key={s.number} delay={idx * 60}>
                 <div data-hover className="process-card group relative overflow-hidden rounded-2xl"
                   style={{ background: "rgba(255,255,255,0.02)", border: "1px solid rgba(255,255,255,0.07)" }}>
 
-                  {step.optional && (
+                  {s.optional && (
                     <div className="absolute right-4 top-4 z-10 rounded-lg px-2 py-1 text-[11px] font-bold tracking-widest"
                       style={{ background: "rgba(34,211,238,0.08)", border: "1px solid rgba(34,211,238,0.25)", color: "#67e8f9" }}>
                       Optional
@@ -300,32 +302,32 @@ export default function ProcessPage() {
                   )}
 
                   {/* Gradient overlay on hover */}
-                  <div className={`absolute inset-0 rounded-2xl bg-gradient-to-br ${step.color === "emerald" ? "from-emerald-500/5 to-transparent" : "from-cyan-500/5 to-transparent"} opacity-0 transition-opacity duration-500 group-hover:opacity-100`} />
+                  <div className={`absolute inset-0 rounded-2xl bg-gradient-to-br ${s.color === "emerald" ? "from-emerald-500/5 to-transparent" : "from-cyan-500/5 to-transparent"} opacity-0 transition-opacity duration-500 group-hover:opacity-100`} />
 
                   <div className="relative flex flex-col gap-6 p-6 sm:flex-row sm:gap-8 sm:p-8">
                     {/* Icon */}
                     <div className="relative flex h-20 w-20 shrink-0 flex-col items-center justify-center rounded-2xl transition-all duration-300 group-hover:scale-105"
-                      style={{ background: `linear-gradient(135deg, rgba(${step.color === "emerald" ? "52,211,153" : "34,211,238"},0.12), rgba(6,182,212,0.08))`, border: `1px solid rgba(${step.color === "emerald" ? "52,211,153" : "34,211,238"},0.25)` }}>
-                      <span className="text-2xl">{step.icon}</span>
-                      <span className="mt-0.5 text-xs font-bold text-emerald-400/70">{step.number}</span>
+                      style={{ background: `linear-gradient(135deg, rgba(${s.color === "emerald" ? "52,211,153" : "34,211,238"},0.12), rgba(6,182,212,0.08))`, border: `1px solid rgba(${s.color === "emerald" ? "52,211,153" : "34,211,238"},0.25)` }}>
+                      <span className="text-2xl">{s.icon}</span>
+                      <span className="mt-0.5 text-xs font-bold text-emerald-400/70">{s.number}</span>
                     </div>
 
                     {/* Content */}
                     <div className="flex-1 grid gap-6 lg:grid-cols-3">
                       {/* Left */}
                       <div className="lg:col-span-1">
-                        <h3 className="text-lg font-bold text-white group-hover:text-emerald-300 transition-colors duration-300">{step.title}</h3>
-                        <p className="mt-1 text-xs font-bold tracking-widest text-emerald-400/70 uppercase">{step.subtitle}</p>
-                        <p className="mt-3 text-xs leading-relaxed text-zinc-400">{step.description}</p>
+                        <h3 className="text-lg font-bold text-white group-hover:text-emerald-300 transition-colors duration-300">{s.title}</h3>
+                        <p className="mt-1 text-xs font-bold tracking-widest text-emerald-400/70 uppercase">{s.subtitle}</p>
+                        <p className="mt-3 text-xs leading-relaxed text-zinc-400">{s.description}</p>
                       </div>
 
                       {/* Details */}
                       <div className="lg:col-span-1">
                         <h4 className="mb-3 text-xs font-bold uppercase tracking-widest text-zinc-400">Details:</h4>
                         <ul className="space-y-2">
-                          {step.details.map((detail) => (
+                          {s.details.map((detail) => (
                             <li key={detail} className="flex items-start gap-2 text-xs text-zinc-400">
-                              <span className={`mt-1.5 flex h-1.5 w-1.5 shrink-0 rounded-full ${step.color === "emerald" ? "bg-emerald-400" : "bg-cyan-400"}`} />
+                              <span className={`mt-1.5 flex h-1.5 w-1.5 shrink-0 rounded-full ${s.color === "emerald" ? "bg-emerald-400" : "bg-cyan-400"}`} />
                               <span>{detail}</span>
                             </li>
                           ))}
@@ -335,20 +337,21 @@ export default function ProcessPage() {
                       {/* Outcome */}
                       <div className="lg:col-span-1">
                         <div className="rounded-xl p-4"
-                          style={{ background: `rgba(${step.color === "emerald" ? "52,211,153" : "34,211,238"},0.04)`, border: `1px solid rgba(${step.color === "emerald" ? "52,211,153" : "34,211,238"},0.15)` }}>
+                          style={{ background: `rgba(${s.color === "emerald" ? "52,211,153" : "34,211,238"},0.04)`, border: `1px solid rgba(${s.color === "emerald" ? "52,211,153" : "34,211,238"},0.15)` }}>
                           <p className="text-xs font-bold tracking-widest mb-2 uppercase"
-                            style={{ color: step.color === "emerald" ? "#34d399" : "#22d3ee" }}>
+                            style={{ color: s.color === "emerald" ? "#34d399" : "#22d3ee" }}>
                             Outcome
                           </p>
-                          <p className="text-xs leading-relaxed text-zinc-300">💡 {step.outcome}</p>
+                          <p className="text-xs leading-relaxed text-zinc-300">💡 {s.outcome}</p>
                         </div>
                       </div>
                     </div>
                   </div>
-                  <div className={`absolute bottom-0 left-0 h-0.5 w-0 transition-all duration-700 group-hover:w-full ${step.color === "emerald" ? "bg-gradient-to-r from-emerald-500 to-cyan-500" : "bg-gradient-to-r from-cyan-500 to-emerald-500"}`} />
+                  <div className={`absolute bottom-0 left-0 h-0.5 w-0 transition-all duration-700 group-hover:w-full ${s.color === "emerald" ? "bg-gradient-to-r from-emerald-500 to-cyan-500" : "bg-gradient-to-r from-cyan-500 to-emerald-500"}`} />
                 </div>
               </Reveal>
-            ))}
+              );
+            })}
           </div>
         </section>
 
