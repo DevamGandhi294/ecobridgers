@@ -83,7 +83,7 @@ type ProcessStep = {
   readonly outcome: string;
   readonly icon: string;
   readonly color: "emerald" | "cyan";
-  readonly optional: boolean;
+  readonly optional?: boolean;
 };
 
 export default function ProcessPage() {
