@@ -74,8 +74,20 @@ function Badge({ color, children }: { color: "emerald" | "cyan"; children: React
   );
 }
 
+type ProcessStep = {
+  readonly number: string;
+  readonly title: string;
+  readonly subtitle: string;
+  readonly description: string;
+  readonly details: readonly string[];
+  readonly outcome: string;
+  readonly icon: string;
+  readonly color: "emerald" | "cyan";
+  readonly optional: boolean;
+};
+
 export default function ProcessPage() {
-  const processSteps = [
+  const processSteps: readonly ProcessStep[] = [
     {
       number: "01",
       title: "Discussion & Problem Understanding",
@@ -90,6 +102,7 @@ export default function ProcessPage() {
       outcome: "This step ensures that we solve the right problem, not just build technology.",
       icon: "💬",
       color: "emerald",
+      optional: false,
     },
     {
       number: "02",
@@ -106,6 +119,7 @@ export default function ProcessPage() {
       outcome: "A strong design phase reduces rework and ensures smooth execution.",
       icon: "🏗️",
       color: "cyan",
+      optional: false,
     },
     {
       number: "03",
@@ -121,6 +135,7 @@ export default function ProcessPage() {
       outcome: "This approach allows faster delivery while maintaining alignment across all components.",
       icon: "⚡",
       color: "emerald",
+      optional: false,
     },
     {
       number: "04",
@@ -137,6 +152,7 @@ export default function ProcessPage() {
       outcome: "Testing ensures the system is stable, accurate, and ready for deployment.",
       icon: "🔬",
       color: "cyan",
+      optional: false,
     },
     {
       number: "05",
@@ -152,6 +168,7 @@ export default function ProcessPage() {
       outcome: "Our goal is to deliver a solution that is easy to use and maintain.",
       icon: "🚀",
       color: "emerald",
+      optional: false,
     },
     {
       number: "06",
@@ -169,7 +186,7 @@ export default function ProcessPage() {
       color: "cyan",
       optional: true,
     },
-  ] as const;
+  ];
 
   const whyItWorks = [
     "Clear communication at every stage",
