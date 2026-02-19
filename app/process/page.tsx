@@ -87,7 +87,7 @@ type ProcessStep = {
 };
 
 export default function ProcessPage() {
-  const processSteps: readonly ProcessStep[] = [
+  const processSteps = [
     {
       number: "01",
       title: "Discussion & Problem Understanding",
@@ -186,7 +186,7 @@ export default function ProcessPage() {
       color: "cyan",
       optional: true,
     },
-  ];
+  ] satisfies readonly ProcessStep[];
 
   const whyItWorks = [
     "Clear communication at every stage",
